@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<title>I. M. Yusupov — Empatiya testi</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;min-height:100vh;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  color:#13233a;
+  background:
+    radial-gradient(circle at 8% 10%,rgba(56,189,248,.27),transparent 28%),
+    radial-gradient(circle at 92% 15%,rgba(167,139,250,.25),transparent 30%),
+    radial-gradient(circle at 75% 88%,rgba(52,211,153,.18),transparent 30%),
+    linear-gradient(135deg,#f8fbff 0%,#eef6ff 48%,#f8fffc 100%);
+}
+button{font:inherit;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid rgba(37,99,235,.32);outline-offset:3px}
+.app-shell{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
+.container{width:min(1120px,100%)}
+.glass{
+  background:rgba(255,255,255,.88);
+  border:1px solid rgba(226,232,240,.92);
+  box-shadow:0 26px 70px rgba(15,23,42,.11);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-radius:30px;
+}
+.soft{
+  background:rgba(255,255,255,.96);
+  border:1px solid #e5eaf2;
+  box-shadow:0 16px 38px rgba(15,23,42,.07);
+  border-radius:24px;
+}
+.fade{animation:fade .28s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:34px;align-items:center;padding:36px}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;
+  background:#eff6ff;border:1px solid #dbeafe;color:#1d4ed8;font-size:.88rem;font-weight:800
+}
+.dot{width:10px;height:10px;border-radius:50%;background:#34d399;box-shadow:0 0 0 5px rgba(52,211,153,.13)}
+h1,h2,h3{margin:0;color:#0f172a;letter-spacing:-.025em}
+.hero-title{font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,5vw,4rem);line-height:1.06;font-weight:900;margin-top:18px}
+.lead{margin:18px 0 0;color:#5b6b82;font-size:1.05rem;line-height:1.8}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.stat{background:#fff;border:1px solid #e7edf6;border-radius:18px;padding:16px}
+.stat b{display:block;font-size:1.9rem;color:#2563eb;line-height:1}
+.stat span{display:block;color:#718096;font-size:.88rem;margin-top:6px}
+.instructions{padding:24px}
+.instructions h2{font-size:1.45rem}
+.instructions p{color:#64748b;line-height:1.7}
+.option-list{display:grid;gap:10px;margin-top:18px}
+.option-mini{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 14px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:15px}
+.option-mini strong{min-width:34px;text-align:center;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:4px 8px;color:#334155}
+.btn{border:0;border-radius:16px;padding:14px 20px;font-weight:850;cursor:pointer;transition:.18s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;box-shadow:0 12px 24px rgba(37,99,235,.22)}
+.btn-secondary{background:#fff;color:#334155;border:1px solid #dbe3ee}
+.btn-danger{background:#fff1f2;color:#b4233b;border:1px solid #fecdd3}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap}
+.start-btn{margin-top:28px;min-width:190px}
+.quiz{padding:24px}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}
+.kicker{font-size:.9rem;font-weight:900;color:#2563eb}
+.counter{padding:8px 12px;background:#fff;border:1px solid #e2e8f0;border-radius:14px;font-weight:850;color:#475569}
+.progress{height:12px;background:#e2e8f0;border-radius:999px;overflow:hidden}
+.progress>div{height:100%;border-radius:inherit;background:linear-gradient(90deg,#0ea5e9,#2563eb,#7c3aed,#ec4899);transition:width .28s ease}
+.question-card{padding:26px;margin-top:18px}
+.qnum{width:50px;height:50px;border-radius:16px;display:grid;place-items:center;color:#fff;font-weight:950;font-size:1.05rem;background:linear-gradient(135deg,#0ea5e9,#7c3aed);box-shadow:0 12px 24px rgba(124,58,237,.2)}
+.q-label{margin-top:18px;font-size:.84rem;font-weight:900;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em}
+.q-text{font-family:"Trebuchet MS","Segoe UI",sans-serif;font-size:clamp(1.25rem,3.3vw,2rem);line-height:1.35;font-weight:900;margin-top:8px}
+.answer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.answer{min-height:112px;text-align:left;padding:16px;background:#fff;border:1px solid #dfe7f0;border-radius:18px;transition:.17s ease;color:#334155}
+.answer:hover{border-color:#60a5fa;box-shadow:0 14px 28px rgba(37,99,235,.10);transform:translateY(-2px)}
+.answer.selected{background:linear-gradient(135deg,#eef6ff,#f4efff);border:2px solid #6366f1;box-shadow:0 14px 30px rgba(99,102,241,.14)}
+.answer-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.answer-title{font-weight:900;color:#0f172a}
+.answer-hint{font-size:.82rem;color:#64748b;margin-top:8px;line-height:1.45}
+.answer-score{flex:0 0 auto;padding:5px 9px;border-radius:10px;background:#f1f5f9;color:#334155;font-weight:950}
+.answer.selected .answer-score{background:#4f46e5;color:#fff}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
+.nav .btn{min-width:130px}
+.msg{margin-top:16px;padding:13px 15px;border-radius:14px;background:#fff1f2;border:1px solid #fecdd3;color:#b4233b;font-weight:750}
+.result-wrap{padding:28px}
+.result-head{text-align:center;max-width:760px;margin:0 auto}
+.success{display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;background:#ecfdf5;border:1px solid #d1fae5;color:#047857;font-weight:850;font-size:.88rem}
+.scorebox{margin-top:20px;background:linear-gradient(135deg,#0f3f91,#2563eb 42%,#7c3aed 80%,#ec4899 120%);color:#fff;border-radius:26px;padding:26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.scorebig{font-family:Georgia,"Times New Roman",serif;font-size:clamp(3.2rem,9vw,5.8rem);font-weight:900;line-height:1}
+.scorebig small{font:700 1rem system-ui;opacity:.78}
+.level{font-size:1.35rem;font-weight:950;color:#fde68a;margin-top:5px}
+.reliability{display:inline-flex;margin-top:10px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);font-weight:850}
+.scoretext{max-width:440px;color:#e8efff;line-height:1.65}
+.warn{margin-top:16px;padding:14px 16px;border-radius:15px;border:1px solid #fde68a;background:#fffbeb;color:#7c5a08;font-weight:750}
+.warn.bad{border-color:#fecaca;background:#fef2f2;color:#991b1b}
+.scale-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}
+.scale-card{padding:18px}
+.scale-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.scale-name{font-weight:900;color:#0f172a}
+.scale-score{font-weight:950;color:#2563eb;white-space:nowrap}
+.bar{height:10px;border-radius:999px;background:#e8edf5;overflow:hidden;margin-top:10px}
+.bar>div{height:100%;border-radius:inherit;background:linear-gradient(90deg,#0ea5e9,#2563eb,#7c3aed,#ec4899)}
+.small{font-size:.88rem;color:#64748b;margin-top:8px}
+.result-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:24px}
+.footer-note{margin-top:18px;color:#64748b;font-size:.9rem;line-height:1.6;text-align:center}
+.no-print{}
+@media(max-width:840px){
+  .hero-grid{grid-template-columns:1fr;padding:24px}
+  .answer-grid{grid-template-columns:repeat(2,1fr)}
+  .scale-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .app-shell{padding:10px}
+  .glass{border-radius:22px}
+  .hero-grid,.quiz,.result-wrap{padding:18px}
+  .stats{grid-template-columns:1fr}
+  .answer-grid{grid-template-columns:1fr}
+  .answer{min-height:90px}
+  .nav{flex-direction:column-reverse}
+  .nav .btn{width:100%}
+  .btn-row{flex-direction:column}
+  .btn-row .btn{width:100%}
+  .scorebox{padding:20px}
+  .q-text{font-size:1.28rem}
+}
+@media print{
+  @page{size:A4;margin:12mm}
+  body{background:#fff!important}
+  .no-print{display:none!important}
+  .app-shell{display:block;padding:0}
+  .container{width:100%}
+  .glass,.soft{box-shadow:none!important;backdrop-filter:none!important;border:1px solid #cbd5e1!important}
+  .result-wrap{padding:0}
+  .scorebox{background:#fff!important;color:#000!important;border:2px solid #111!important}
+  .level,.scoretext,.reliability{color:#000!important}
+  .reliability{border-color:#999!important}
+  .bar>div{background:#555!important}
+}
+</style>
+</head>
+<body>
+<main class="app-shell">
+  <section id="app" class="container"></section>
+</main>
+
+<script>
+"use strict";
+const questions = ["Menga «Ajoyib kishilar hayoti» turkumidagi kitoblarga qaraganda sayohatlar haqidagi kitoblar ko‘proq yoqadi.", "Voyaga yetgan farzandlarni ota-onalarining g‘amxo‘rligi bezovta qiladi.", "Boshqa odamlarning muvaffaqiyatlari va muvaffaqiyatsizliklari sabablari haqida mulohaza yuritish menga yoqadi.", "Barcha musiqiy teleko‘rsatuvlar orasida «Zamonaviy ritmlar»ni afzal ko‘raman.", "Bemor odamning haddan tashqari asabiyligi va adolatsiz tanbehlariga, hatto ular yillar davom etsa ham, chidash kerak.", "Bemor odamga hatto so‘z bilan ham yordam berish mumkin.", "Begona odamlar ikki kishi o‘rtasidagi nizoga aralashmasligi kerak.", "Keksa odamlar, odatda, sababsiz ranjiydilar.", "Bolaligimda qayg‘uli hikoyani tinglaganimda, ko‘zlarimga o‘z-o‘zidan yosh kelardi.", "Ota-onamning asabiy holati mening kayfiyatimga ta’sir qiladi.", "Menga qaratilgan tanqidga befarqman.", "Menga manzara tasvirlangan rasmlarga qaraganda portretlarni tomosha qilish ko‘proq yoqadi.", "Ota-onam nohaq bo‘lsalar ham, men ularni doimo kechirganman.", "Agar ot aravani yaxshi tortmasa, uni qamchilash kerak.", "Odamlar hayotidagi dramatik voqealar haqida o‘qiganimda, bu voqealar xuddi men bilan sodir bo‘layotgandek his qilaman.", "Ota-onalar o‘z farzandlariga adolatli munosabatda bo‘ladilar.", "Janjallashayotgan o‘smirlar yoki kattalarni ko‘rsam, ularning janjaliga aralashaman.", "Ota-onamning yomon kayfiyatiga e’tibor bermayman.", "Boshqa ishlarimni keyinga qoldirib, hayvonlarning xatti-harakatlarini uzoq vaqt kuzataman.", "Filmlar va kitoblar faqat jiddiy bo‘lmagan odamlarning ko‘ziga yosh keltirishi mumkin.", "Notanish odamlarning yuz ifodasi va xulq-atvorini kuzatish menga yoqadi.", "Bolaligimda uyga qarovsiz mushuk va itlarni olib kelardim.", "Barcha odamlar asossiz ravishda g‘azablangan.", "Notanish odamga qarab, uning hayoti qanday kechishini taxmin qilgim keladi.", "Bolaligimda mendan kichik bolalar ortimdan ergashib yurishardi.", "Jarohatlangan hayvonni ko‘rsam, unga biror yo‘l bilan yordam berishga harakat qilaman.", "Odamning shikoyatlarini diqqat bilan tinglashsa, unga yengil bo‘ladi.", "Ko‘chada biror hodisani ko‘rsam, guvohlar qatoriga tushib qolmaslikka harakat qilaman.", "Mendan kichiklarga men taklif qilgan g‘oya, ish yoki ko‘ngilochar mashg‘ulotlar yoqadi.", "Odamlar hayvonlarning o‘z egasining kayfiyatini his qilish qobiliyatini bo‘rttirib ko‘rsatadilar.", "Qiyin yoki nizoli vaziyatdan odamning o‘zi mustaqil chiqishi kerak.", "Agar bola yig‘lasa, buning o‘z sababi bor.", "Yoshlar keksalarning har qanday iltimoslari va injiqliklarini doimo bajarishlari kerak.", "Ayrim sinfdoshlarim nega ba’zida o‘ychan bo‘lib qolishlarini tushunishni istardim.", "Qarovsiz uy hayvonlarini tutib, yo‘q qilish kerak.", "Agar do‘stlarim men bilan o‘zlarining shaxsiy muammolarini muhokama qila boshlasalar, suhbatni boshqa mavzuga burishga harakat qilaman."];
+const options = [{"label": "Bilmayman", "value": 0, "hint": "Aniq fikrim yo‘q"}, {"label": "Yo‘q, hech qachon", "value": 1, "hint": "Bu menga xos emas"}, {"label": "Ba’zida", "value": 2, "hint": "Ayrim holatlarda"}, {"label": "Ko‘pincha", "value": 3, "hint": "Ko‘p vaziyatlarda"}, {"label": "Deyarli har doim", "value": 4, "hint": "Juda tez-tez"}, {"label": "Ha, har doim", "value": 5, "hint": "Bu menga juda xos"}];
+const scales = [{"name": "Ota-onalarga nisbatan empatiya", "items": [10, 13, 16], "icon": "👨‍👩‍👧"}, {"name": "Hayvonlarga nisbatan empatiya", "items": [19, 22, 26], "icon": "🐾"}, {"name": "Keksa odamlarga nisbatan empatiya", "items": [2, 5, 8], "icon": "🧓"}, {"name": "Bolalarga nisbatan empatiya", "items": [25, 29, 32], "icon": "🧒"}, {"name": "Badiiy asar qahramonlariga nisbatan empatiya", "items": [9, 12, 15], "icon": "📖"}, {"name": "Notanish yoki kam tanish odamlarga nisbatan empatiya", "items": [21, 24, 27], "icon": "🤝"}];
+
+const app = document.getElementById("app");
+let currentQuestionIndex = 0;
+let answers = Array(questions.length).fill(null);
+let validationMessage = "";
+let autoNextTimer = null;
+
+function escapeHtml(text){
+  return String(text)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function renderStartScreen(){
+  clearTimeout(autoNextTimer);
+  app.innerHTML = `
+    <div class="glass fade hero-grid">
+      <div>
+        <div class="badge"><span class="dot"></span> Psixodiagnostik metodika</div>
+        <h1 class="hero-title">I. M. Yusupovning empatiya darajasini diagnostika qilish metodikasi</h1>
+        <p class="lead">Ushbu test empatik tendensiyalarning umumiy darajasini va 6 ta yo‘nalish bo‘yicha namoyon bo‘lishini baholaydi.</p>
+        <div class="stats">
+          <div class="stat"><b>36</b><span>tasdiq</span></div>
+          <div class="stat"><b>6</b><span>empatiya yo‘nalishi</span></div>
+          <div class="stat"><b>0–90</b><span>umumiy ball</span></div>
+        </div>
+        <button type="button" class="btn btn-primary start-btn no-print" onclick="startTest()">Testni boshlash</button>
+      </div>
+      <aside class="soft instructions">
+        <h2>Yo‘riqnoma</h2>
+        <p>Har bir tasdiqni diqqat bilan o‘qing va o‘zingizga eng mos bitta javobni belgilang. Javoblar «yaxshi» yoki «yomon» deb baholanmaydi.</p>
+        <div class="option-list">
+          ${options.map(o=>`<div class="option-mini"><span>${escapeHtml(o.label)}</span><strong>${o.value}</strong></div>`).join("")}
+        </div>
+      </aside>
+    </div>`;
+}
+
+function startTest(){
+  clearTimeout(autoNextTimer);
+  currentQuestionIndex = 0;
+  answers = Array(questions.length).fill(null);
+  validationMessage = "";
+  renderQuestionScreen();
+}
+
+function restartTest(){
+  clearTimeout(autoNextTimer);
+  currentQuestionIndex = 0;
+  answers = Array(questions.length).fill(null);
+  validationMessage = "";
+  renderStartScreen();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function selectAnswer(value){
+  answers[currentQuestionIndex] = value;
+  validationMessage = "";
+  renderQuestionScreen();
+  clearTimeout(autoNextTimer);
+  autoNextTimer = setTimeout(()=>{
+    if(currentQuestionIndex < questions.length-1){
+      currentQuestionIndex++;
+      renderQuestionScreen();
+    }else{
+      renderResultScreen();
+    }
+  }, 420);
+}
+
+function goNext(){
+  clearTimeout(autoNextTimer);
+  if(answers[currentQuestionIndex] === null){
+    validationMessage = "Iltimos, davom etishdan oldin javob variantlaridan birini tanlang.";
+    renderQuestionScreen();
+    return;
+  }
+  validationMessage = "";
+  if(currentQuestionIndex < questions.length-1){
+    currentQuestionIndex++;
+    renderQuestionScreen();
+  }else{
+    renderResultScreen();
+  }
+}
+
+function goPrevious(){
+  clearTimeout(autoNextTimer);
+  if(currentQuestionIndex > 0){
+    currentQuestionIndex--;
+    validationMessage = "";
+    renderQuestionScreen();
+  }
+}
+
+function renderQuestionScreen(){
+  const n = currentQuestionIndex+1;
+  const percent = Math.round((n/questions.length)*100);
+  const selected = answers[currentQuestionIndex];
+
+  app.innerHTML = `
+    <div class="glass fade quiz">
+      <div class="topline">
+        <div>
+          <div class="kicker">Savol ${n} / ${questions.length}</div>
+          <h2 style="margin-top:4px">Empatiya testi</h2>
+        </div>
+        <div class="counter">${percent}%</div>
+      </div>
+      <div class="progress"><div style="width:${percent}%"></div></div>
+
+      <div class="soft question-card">
+        <div class="qnum">${n}</div>
+        <div class="q-label">Tasdiq</div>
+        <h3 class="q-text">${escapeHtml(questions[currentQuestionIndex])}</h3>
+
+        <div class="answer-grid">
+          ${options.map(o=>{
+            const sel = selected === o.value;
+            return `<button type="button" class="answer ${sel?"selected":""}" onclick="selectAnswer(${o.value})" aria-pressed="${sel}">
+              <div class="answer-head">
+                <div>
+                  <div class="answer-title">${escapeHtml(o.label)}</div>
+                  <div class="answer-hint">${escapeHtml(o.hint)}</div>
+                </div>
+                <div class="answer-score">${o.value}</div>
+              </div>
+            </button>`;
+          }).join("")}
+        </div>
+
+        ${validationMessage?`<div class="msg">${escapeHtml(validationMessage)}</div>`:""}
+
+        <div class="nav no-print">
+          <button type="button" class="btn btn-secondary" onclick="goPrevious()" ${currentQuestionIndex===0?"disabled style='opacity:.45;cursor:not-allowed'":""}>Oldingi</button>
+          <button type="button" class="btn btn-primary" onclick="goNext()">${currentQuestionIndex===questions.length-1?"Natijani ko‘rish":"Keyingi"}</button>
+        </div>
+      </div>
+    </div>`;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function scaleLevel(score){
+  if(score===15) return "Juda yuqori";
+  if(score>=13) return "Yuqori";
+  if(score>=5) return "O‘rta";
+  if(score>=2) return "Past";
+  return "Juda past";
+}
+
+function overallLevel(score){
+  if(score>=82) return "Juda yuqori";
+  if(score>=63) return "Yuqori";
+  if(score>=37) return "O‘rta";
+  if(score>=12) return "Past";
+  return "Juda past";
+}
+
+function overallText(level){
+  const map={
+    "Juda yuqori":"Empatik javob berish tendensiyasi juda kuchli namoyon bo‘lgan.",
+    "Yuqori":"Empatik sezgirlik yuqori darajada namoyon bo‘lgan.",
+    "O‘rta":"Empatik tendensiyalar o‘rtacha darajada namoyon bo‘lgan.",
+    "Past":"Empatik javob berish tendensiyasi nisbatan past darajada qayd etilgan.",
+    "Juda past":"Empatik javob berish tendensiyasi juda past diapazonda qayd etilgan."
+  };
+  return map[level];
+}
+
+function reliabilityScore(){
+  let count=0;
+  const a={};
+  answers.forEach((v,i)=>a[i+1]=v);
+
+  [2,4,16,18,33].forEach(n=>{if(a[n]===0) count++;});
+  [2,7,11,13,16,18,23].forEach(n=>{if(a[n]===5) count++;});
+  [[7,17],[10,18],[17,31],[22,35],[34,36]].forEach(([x,y])=>{if(a[x]===5 && a[y]===5) count++;});
+  [[3,36],[1,3],[17,28]].forEach(([x,y])=>{if((a[x]===5&&a[y]===1)||(a[x]===1&&a[y]===5)) count++;});
+
+  let label="Ishonchli";
+  if(count===4) label="Shubhali";
+  else if(count>=5) label="Ishonchsiz";
+  return {count,label};
+}
+
+function calcTotal(){
+  const items=[2,5,8,9,10,12,13,15,16,19,21,22,24,25,26,27,29,32];
+  return items.reduce((sum,n)=>sum+answers[n-1],0);
+}
+
+function calcScales(){
+  return scales.map(s=>{
+    const score=s.items.reduce((sum,n)=>sum+answers[n-1],0);
+    return {...s,score,level:scaleLevel(score),percent:Math.round((score/15)*100)};
+  });
+}
+
+
+
+function buildPrintableDocument() {
+  const resultNode = document.querySelector(".result-wrap");
+  if (!resultNode) return null;
+
+  const cloned = resultNode.cloneNode(true);
+  cloned.querySelectorAll(".no-print").forEach(el => el.remove());
+
+  const pageStyle = document.querySelector("style") ? document.querySelector("style").textContent : "";
+
+  return `<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Empatiya testi natijasi</title>
+<style>
+${pageStyle}
+html,body{background:#fff!important}
+body{margin:0;padding:18px;color:#13233a}
+.app-shell{display:block!important;min-height:auto!important;padding:0!important}
+.container{width:100%!important;max-width:1000px!important;margin:0 auto}
+.print-toolbar{
+  position:sticky;top:0;z-index:1000;
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+  padding:12px;margin:0 auto 16px;
+  background:rgba(255,255,255,.97);
+  border:1px solid #dbe3ee;border-radius:16px;
+  box-shadow:0 8px 24px rgba(15,23,42,.08)
+}
+.print-toolbar button{
+  border:0;border-radius:12px;padding:12px 18px;font:800 15px system-ui;
+  cursor:pointer
+}
+.print-now{background:#2563eb;color:#fff}
+.print-close{background:#eef2f7;color:#334155}
+@media print{
+  .print-toolbar{display:none!important}
+  body{padding:0!important}
+}
+</style>
+</head>
+<body>
+<div class="print-toolbar">
+  <button class="print-now" onclick="window.print()">🖨️ Chop etish / PDF</button>
+  <button class="print-close" onclick="window.close()">✕ Yopish</button>
+</div>
+<div class="app-shell"><section class="container">${cloned.outerHTML}</section></div>
+</body>
+</html>`;
+}
+
+function downloadPrintableHtml(html) {
+  try {
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "empatiya_testi_natijasi_chop_etish.html";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function printResultRobust() {
+  const html = buildPrintableDocument();
+  if (!html) {
+    alert("Avval test natijasini hosil qiling.");
+    return;
+  }
+
+  // 1-usul: foydalanuvchi bosishi bilan alohida top-level oyna ochiladi.
+  // Bu ichki preview/sandbox print cheklovlarini ko‘pincha chetlab o‘tadi.
+  let popup = null;
+  try {
+    popup = window.open("", "_blank");
+  } catch (e) {}
+
+  if (popup && popup.document) {
+    try {
+      popup.document.open();
+      popup.document.write(html);
+      popup.document.close();
+      popup.focus();
+
+      // Avtomatik printni sinab ko‘ramiz; bloklansa yangi oynadagi
+      // ko‘rinib turgan "Chop etish / PDF" tugmasi ishlatiladi.
+      setTimeout(() => {
+        try { popup.print(); } catch (e) {}
+      }, 500);
+      return;
+    } catch (e) {
+      try { popup.close(); } catch (_) {}
+    }
+  }
+
+  // 2-usul: popup bloklangan bo‘lsa, chop etishga tayyor mustaqil HTML yuklanadi.
+  if (downloadPrintableHtml(html)) {
+    alert("Brauzer yangi oynani blokladi. Chop etishga tayyor natija fayli yuklandi. Uni Chrome/Safari/Edge’da ochib «Chop etish / PDF» tugmasini bosing.");
+    return;
+  }
+
+  // 3-usul: oxirgi fallback.
+  try {
+    window.print();
+  } catch (e) {
+    alert("Brauzer chop etishni blokladi. Sahifani Chrome, Safari yoki Edge’da ochib brauzer menyusidan «Chop etish»ni tanlang.");
+  }
+}
+
+function renderResultScreen(){
+  clearTimeout(autoNextTimer);
+  if(answers.some(v=>v===null)){
+    currentQuestionIndex = answers.findIndex(v=>v===null);
+    validationMessage = "Iltimos, ushbu savolga javob bering.";
+    renderQuestionScreen();
+    return;
+  }
+
+  const total=calcTotal();
+  const level=overallLevel(total);
+  const rel=reliabilityScore();
+  const scaleResults=calcScales();
+
+  let warnClass = rel.label==="Ishonchsiz" ? "warn bad" : "warn";
+  let warnText = rel.label==="Ishonchli"
+    ? `Javoblar protokoli ishonchli deb baholandi. Aniqlangan belgilar: ${rel.count}.`
+    : rel.label==="Shubhali"
+      ? `Javoblar protokoli shubhali. Natijani ehtiyotkorlik bilan talqin qilish tavsiya etiladi. Belgilar: ${rel.count}.`
+      : `Javoblar protokoli ishonchsiz. Empatiya darajasiga qat’iy xulosa chiqarish tavsiya etilmaydi. Belgilar: ${rel.count}.`;
+
+  app.innerHTML = `
+    <div class="glass fade result-wrap">
+      <div class="result-head">
+        <div class="success"><span class="dot"></span> Test yakunlandi</div>
+        <h1 style="font-size:clamp(2rem,4.5vw,3.4rem);margin-top:14px">Sizning empatiya natijangiz</h1>
+        <p class="lead" style="margin-left:auto;margin-right:auto">Umumiy ko‘rsatkich va 6 ta empatiya yo‘nalishi quyida keltirilgan.</p>
+      </div>
+
+      <div class="scorebox">
+        <div>
+          <div class="scorebig">${total}<small> / 90</small></div>
+          <div class="level">${level} daraja</div>
+          <div class="reliability">Ishonchlilik: ${rel.label} (${rel.count} belgi)</div>
+        </div>
+        <div class="scoretext"><strong>${overallText(level)}</strong><br><br>Natijani boshqa psixologik ma’lumotlar va shaxsning umumiy konteksti bilan birgalikda talqin qilish maqsadga muvofiq.</div>
+      </div>
+
+      <div class="${warnClass}">${warnText}</div>
+
+      <div class="scale-grid">
+        ${scaleResults.map(s=>`
+          <div class="soft scale-card">
+            <div class="scale-top">
+              <div class="scale-name">${s.icon} ${escapeHtml(s.name)}</div>
+              <div class="scale-score">${s.score} / 15</div>
+            </div>
+            <div class="bar"><div style="width:${s.percent}%"></div></div>
+            <div class="small"><strong>${s.level}</strong> daraja</div>
+          </div>
+        `).join("")}
+      </div>
+
+      <div class="soft" style="padding:20px;margin-top:18px">
+        <h2>Ilmiy eslatma</h2>
+        <p class="lead" style="font-size:.95rem;margin-top:10px">Ushbu metodika empatik tendensiyalarni baholaydi. Natija mustaqil ravishda klinik tashxis, kasbiy yaroqlilik yoki shaxs haqida qat’iy hukm chiqarish uchun yetarli asos emas.</p>
+      </div>
+
+      <div class="result-actions no-print">
+        <button type="button" class="btn btn-primary" onclick="restartTest()">Testni qayta topshirish</button>
+        <button type="button" class="btn btn-secondary" onclick="printResultRobust()">🖨️ Natijani chop etish / PDF</button>
+      </div>
+
+      <div class="footer-note">I. M. Yusupov metodikasining o‘zbek tiliga tarjima-tahrir qilingan avtomatlashtirilgan varianti.</div>
+    </div>`;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+renderStartScreen();
+</script>
+</body>
+</html>
